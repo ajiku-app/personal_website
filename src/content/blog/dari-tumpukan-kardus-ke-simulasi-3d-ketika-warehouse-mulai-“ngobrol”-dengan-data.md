@@ -4,7 +4,7 @@ title: "Dari Tumpukan Kardus ke Simulasi 3D: Ketika Warehouse Mulai â€œNgobrolâ€
 description: Bagaimana sebuah kebutuhan sederhana di dunia gudang bisa
   berkembang menjadi aplikasi kalkulator kargo 3D
 pubDate: 2026-09-16T11:44:00.000+07:00
-coverImage: /images/uploads/untitled.jpg
+coverImage: https://cargo3d.vercel.app/
 draft: false
 ---
 **Bagaimana sebuah kebutuhan sederhana di dunia gudang bisa berkembang menjadi aplikasi kalkulator kargo 3D?**
