@@ -1,9 +1,12 @@
 ---
-title: "Belajar di Depan Umum"
-description: "Membagikan proses belajar yang belum sempurna ternyata lebih berguna daripada menunggu sampai 'ahli' dulu."
+title: Belajar di Depan Umum
+description: Membagikan proses belajar yang belum sempurna ternyata lebih
+  berguna daripada menunggu sampai 'ahli' dulu.
 pubDate: 2026-07-03
-tags: ["karier", "refleksi"]
-coverImage: "/images/covers/belajar-di-depan-umum.svg"
+tags:
+  - karier
+  - refleksi
+coverImage: /images/uploads/aji.jpg-copy.jpg
 draft: false
 ---
 
