@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const formattedDate = post.data.pubDate.toLocaleDateString('id-ID', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <article class="max-w-4xl mx-auto px-5 sm:px-8 pt-10 pb-16">
+    <a href="/tulisan" class="text-sm text-orange hover:underline underline-offset-2">
+      ← Semua tulisan
+    </a>
+
+    <h1 class="font-display text-2xl sm:text-3xl leading-tight mt-4 mb-3 text-ink">
+      {post.data.title}
+    </h1>
+
+    <div class="flex items-center gap-4 text-sm text-muted mb-6">
+      <time datetime={post.data.pubDate.toISOString()}>{formattedDate}</time>
+      {
+        post.data.tags.length > 0 && (
+          <div class="flex gap-2">
+            {post.data.tags.map((tag) => (
+              <span class="px-2 py-0.5 bg-honey/25 rounded-sm text-ink/80">{tag}</span>
+            ))}
+          </div>
+        )
+      }
+    </div>
+
+    {
+      post.data.coverImage && (
+        <img src={post.data.coverImage} alt="" class="stop-motion-img w-full aspect-[16/9] object-cover rounded-sm mb-8" />
+      )
+    }
+
+    <div class="prose-content">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

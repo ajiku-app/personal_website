@@ -1,0 +1,79 @@
+---
+const navItems = [
+  { href: '/tulisan', label: 'Tulisan' },
+  { href: '/jurnal', label: 'Jurnal' },
+  { href: '/portofolio', label: 'Portofolio' },
+  { href: '/tentang', label: 'Tentang' },
+  { href: '/kontak', label: 'Kontak' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="bg-navy border-b border-line sticky top-0 z-40">
+  <div class="max-w-4xl mx-auto px-5 sm:px-8 py-4 flex items-center justify-between gap-4">
+    <a href="/" class="font-display text-xl shrink-0 flex items-center gap-2 text-ink">
+      <span class="w-2 h-2 bg-honey inline-block"></span>
+      Dwi Septa Aji S
+    </a>
+
+    <button
+      id="menu-toggle"
+      class="md:hidden text-sm border border-ink/20 text-ink rounded-sm px-3 py-1.5"
+      aria-expanded="false"
+      aria-controls="main-nav"
+    >
+      Menu
+    </button>
+
+    <nav id="main-nav" class="hidden md:flex items-center gap-6 text-sm">
+      {
+        navItems.map((item) => {
+          const isActive = currentPath.startsWith(item.href);
+          return (
+            <a
+              href={item.href}
+              class:list={[
+                'py-1 border-b-2 transition-colors',
+                isActive
+                  ? 'border-orange text-ink'
+                  : 'border-transparent text-muted hover:text-ink hover:border-orange/50',
+              ]}
+            >
+              {item.label}
+            </a>
+          );
+        })
+      }
+      <a
+        href="/kontak"
+        class="bg-orange text-navy px-4 py-2 rounded-sm text-sm font-medium hover:bg-orangeLight transition-colors"
+      >
+        Hubungi Saya
+      </a>
+    </nav>
+  </div>
+
+  <nav id="mobile-nav" class="hidden md:hidden border-t border-line">
+    <div class="max-w-4xl mx-auto px-5 py-3 flex flex-col gap-1 text-sm">
+      {
+        navItems.map((item) => (
+          <a href={item.href} class="py-2 text-muted hover:text-ink">
+            {item.label}
+          </a>
+        ))
+      }
+    </div>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const mobileNav = document.getElementById('mobile-nav');
+
+  toggle?.addEventListener('click', () => {
+    const isHidden = mobileNav?.classList.contains('hidden');
+    mobileNav?.classList.toggle('hidden');
+    toggle.setAttribute('aria-expanded', String(isHidden));
+  });
+</script>

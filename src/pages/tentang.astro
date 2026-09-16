@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const quickFacts = [
+  {
+    label: 'Latar Belakang',
+    value: 'Sarjana Ilmu Komputer',
+    detail: 'Ganti dengan pendidikan/latar belakangmu',
+  },
+  {
+    label: 'Fokus Saat Ini',
+    value: 'Menulis & Membangun Produk',
+    detail: 'Ganti dengan pekerjaan/fokus utamamu',
+  },
+  {
+    label: 'Berbasis di',
+    value: 'Indonesia',
+    detail: 'Ganti dengan lokasi/domisilimu',
+  },
+];
+
+const skills = [
+  'Menulis & Storytelling',
+  'Riset & Analisis',
+  'Desain Produk',
+  'Pengembangan Web',
+];
+---
+
+<BaseLayout title="Tentang" description="Sedikit cerita tentang saya.">
+  <section class="max-w-4xl mx-auto px-5 sm:px-8 pt-12 pb-16">
+    <h1 class="font-display text-3xl sm:text-4xl mb-6 text-ink">Tentang saya</h1>
+
+    <div class="reveal-stagger grid sm:grid-cols-3 gap-4 mb-10">
+      {
+        quickFacts.map((fact) => (
+          <div class="bg-surface border border-line rounded-sm p-5">
+            <p class="text-orange text-xs uppercase tracking-wide mb-2">{fact.label}</p>
+            <p class="text-ink font-medium">{fact.value}</p>
+            <p class="text-muted text-xs mt-1">{fact.detail}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <div>
+      <div class="prose-content">
+        <p>
+          Halo, saya senang kamu sampai di halaman ini. Saya membangun situs ini sebagai ruang
+          pribadi — tempat menulis lebih serius, memajang pekerjaan yang pernah saya kerjakan,
+          dan menyimpan catatan harian yang lebih santai.
+        </p>
+        <p>
+          Tulis di sini cerita singkat tentang latar belakangmu: apa yang kamu kerjakan sehari-hari,
+          minat yang sedang kamu tekuni, atau perjalanan yang membawamu sampai ke titik ini.
+          Bagian ini paling enak ditulis dengan suara aslimu sendiri, bukan versi paling formal.
+        </p>
+        <h2>Yang sedang saya kerjakan</h2>
+        <p>
+          Ceritakan proyek atau fokus saat ini — bisa pekerjaan, studi, atau eksperimen pribadi
+          yang sedang kamu jalani.
+        </p>
+      </div>
+
+      <h2 class="font-display text-lg mt-8 mb-3 text-ink">Keahlian</h2>
+      <div class="flex flex-wrap gap-2 mb-8">
+        {
+          skills.map((skill) => (
+            <span class="text-sm px-3 py-1.5 bg-surface border border-line rounded-full text-muted">
+              {skill}
+            </span>
+          ))
+        }
+      </div>
+
+      <div class="prose-content">
+        <h2>Di luar layar</h2>
+        <p>
+          Bagian ini opsional, tapi sering jadi favorit pembaca — sedikit cerita tentang dirimu
+          di luar pekerjaan, supaya halaman ini terasa lebih manusiawi.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-10 pt-6 border-t border-line">
+      <a href="/kontak" class="text-orange hover:underline underline-offset-2">
+        Ingin terhubung? Kirim pesan →
+      </a>
+    </div>
+  </section>
+</BaseLayout>

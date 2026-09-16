@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const items = await getCollection('portfolio');
+  return items.map((item) => ({
+    params: { slug: item.slug },
+    props: { item },
+  }));
+}
+
+interface Props {
+  item: CollectionEntry<'portfolio'>;
+}
+
+const { item } = Astro.props;
+const { Content } = await item.render();
+
+const formattedDate = item.data.pubDate.toLocaleDateString('id-ID', {
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<BaseLayout title={item.data.title} description={item.data.description}>
+  <article class="max-w-4xl mx-auto px-5 sm:px-8 pt-10 pb-16">
+    <a href="/portofolio" class="text-sm text-orange hover:underline underline-offset-2">
+      ← Semua portofolio
+    </a>
+
+    {item.data.role && <p class="text-xs uppercase tracking-wide text-orange mt-4">{item.data.role}</p>}
+
+    <h1 class="font-display text-2xl sm:text-3xl leading-tight mt-2 mb-3 text-ink">
+      {item.data.title}
+    </h1>
+
+    <div class="flex flex-wrap items-center gap-3 text-sm text-muted mb-6">
+      <time datetime={item.data.pubDate.toISOString()}>{formattedDate}</time>
+      {
+        item.data.tags.map((tag) => (
+          <span class="px-2 py-0.5 bg-ink/5 rounded-sm text-ink/70">{tag}</span>
+        ))
+      }
+      {
+        item.data.link && (
+          <a href={item.data.link} target="_blank" rel="noopener noreferrer" class="text-orange hover:underline underline-offset-2">
+            Kunjungi proyek ↗
+          </a>
+        )
+      }
+    </div>
+
+    {
+      item.data.coverImage && (
+        <img src={item.data.coverImage} alt={item.data.title} class="stop-motion-img w-full rounded-sm mb-8" />
+      )
+    }
+
+    <div class="prose-content">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

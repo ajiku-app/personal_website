@@ -1,0 +1,57 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Aktifkan Netlify Identity + Git Gateway di dashboard Netlify kamu
+# (Site settings > Identity > Enable Identity, lalu Enable Git Gateway)
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+publish_mode: editorial_workflow
+
+collections:
+  - name: "blog"
+    label: "Tulisan (Blog)"
+    folder: "src/content/blog"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    fields:
+      - { label: "Judul", name: "title", widget: "string" }
+      - { label: "Deskripsi singkat", name: "description", widget: "text" }
+      - { label: "Tanggal publish", name: "pubDate", widget: "datetime" }
+      - { label: "Tag", name: "tags", widget: "list", required: false }
+      - { label: "Gambar sampul", name: "coverImage", widget: "image", required: false }
+      - { label: "Draft (belum tampil di situs)", name: "draft", widget: "boolean", default: false }
+      - { label: "Isi tulisan", name: "body", widget: "markdown" }
+
+  - name: "journal"
+    label: "Jurnal"
+    folder: "src/content/journal"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    fields:
+      - { label: "Judul", name: "title", widget: "string" }
+      - { label: "Tanggal", name: "pubDate", widget: "datetime" }
+      - { label: "Suasana hati", name: "mood", widget: "string", required: false, hint: "contoh: tenang, semangat, capek" }
+      - { label: "Draft (belum tampil di situs)", name: "draft", widget: "boolean", default: false }
+      - { label: "Isi catatan", name: "body", widget: "markdown" }
+
+  - name: "portfolio"
+    label: "Portofolio"
+    folder: "src/content/portfolio"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    fields:
+      - { label: "Judul proyek", name: "title", widget: "string" }
+      - { label: "Deskripsi singkat", name: "description", widget: "text" }
+      - { label: "Tanggal", name: "pubDate", widget: "datetime" }
+      - { label: "Peran / role", name: "role", widget: "string", required: false }
+      - { label: "Tag", name: "tags", widget: "list", required: false }
+      - { label: "Gambar sampul", name: "coverImage", widget: "image", required: false }
+      - { label: "Link proyek", name: "link", widget: "string", required: false }
+      - { label: "Tampilkan di beranda (featured)", name: "featured", widget: "boolean", default: false }
+      - { label: "Detail proyek", name: "body", widget: "markdown" }

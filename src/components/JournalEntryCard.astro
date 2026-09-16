@@ -1,0 +1,30 @@
+---
+interface Props {
+  href: string;
+  title: string;
+  date: Date;
+  mood?: string;
+  snippet?: string;
+}
+
+const { href, title, date, mood, snippet } = Astro.props;
+
+const formattedDate = date.toLocaleDateString('id-ID', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<a
+  href={href}
+  class="group relative block pl-6 sm:pl-8 py-5 border-b border-line hover:bg-white/[0.02] transition-colors"
+>
+  <span class="absolute left-0 top-5 bottom-5 w-[3px] bg-line group-hover:bg-orange transition-colors"></span>
+  <time datetime={date.toISOString()} class="text-sm text-muted">{formattedDate}</time>
+  <h3 class="font-display text-lg sm:text-xl leading-snug text-ink mt-1.5 group-hover:text-orange transition-colors">
+    {title}
+  </h3>
+  {snippet && <p class="mt-2 text-muted leading-relaxed max-w-xl">{snippet}</p>}
+  {mood && <span class="inline-block mt-3 text-xs px-2 py-0.5 bg-honey/25 text-ink/80 rounded-sm">{mood}</span>}
+</a>

@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('journal', ({ data }) => !data.draft);
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'journal'>;
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const formattedDate = entry.data.pubDate.toLocaleDateString('id-ID', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<BaseLayout title={entry.data.title} description={`Catatan jurnal — ${entry.data.title}`}>
+  <article class="max-w-4xl mx-auto px-5 sm:px-8 pt-10 pb-16">
+    <a href="/jurnal" class="text-sm text-orange hover:underline underline-offset-2">
+      ← Semua jurnal
+    </a>
+
+    <h1 class="font-display text-2xl sm:text-3xl leading-tight mt-4 mb-3 text-ink">
+      {entry.data.title}
+    </h1>
+
+    <div class="flex items-center gap-4 text-sm text-muted mb-6">
+      <time datetime={entry.data.pubDate.toISOString()}>{formattedDate}</time>
+      {entry.data.mood && <span class="px-2 py-0.5 bg-honey/25 rounded-sm text-ink/80">{entry.data.mood}</span>}
+    </div>
+
+    <div class="prose-content">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

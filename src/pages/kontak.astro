@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Kontak" description="Cara menghubungi saya.">
+  <section class="max-w-4xl mx-auto px-5 sm:px-8 pt-12 pb-16">
+    <h1 class="font-display text-3xl sm:text-4xl mb-2 text-ink">Kontak</h1>
+    <div class="max-w-xl">
+      <p class="text-muted mb-8 leading-relaxed">
+        Ada pertanyaan, ide kolaborasi, atau sekadar mau menyapa? Isi formulir di bawah,
+        atau kirim email langsung ke
+        <a href="mailto:septa.aji.sisworo@gmail.com" class="text-orange hover:underline underline-offset-2">septa.aji.sisworo@gmail.com</a>.
+      </p>
+
+      <form
+        name="kontak"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+        class="space-y-5"
+      >
+        <input type="hidden" name="form-name" value="kontak" />
+        <p class="hidden">
+          <label>Jangan isi ini kalau kamu manusia: <input name="bot-field" /></label>
+        </p>
+
+        <div>
+          <label for="nama" class="block text-sm mb-1.5">Nama</label>
+          <input
+            type="text"
+            id="nama"
+            name="nama"
+            required
+            class="w-full border border-line rounded-sm px-4 py-2.5 bg-surface text-ink placeholder:text-muted/50 focus:border-orange outline-none"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm mb-1.5">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full border border-line rounded-sm px-4 py-2.5 bg-surface text-ink placeholder:text-muted/50 focus:border-orange outline-none"
+          />
+        </div>
+
+        <div>
+          <label for="pesan" class="block text-sm mb-1.5">Pesan</label>
+          <textarea
+            id="pesan"
+            name="pesan"
+            rows="5"
+            required
+            class="w-full border border-line rounded-sm px-4 py-2.5 bg-surface text-ink placeholder:text-muted/50 focus:border-orange outline-none"
+          ></textarea>
+        </div>
+
+        <button
+          type="submit"
+          class="bg-orange text-navy font-medium px-6 py-3 rounded-sm text-sm hover:bg-orangeLight hover:-translate-y-0.5 transition-all"
+        >
+          Kirim pesan
+        </button>
+      </form>
+
+      <p class="text-xs text-muted/70 mt-6">
+        Formulir ini pakai Netlify Forms — otomatis aktif kalau situs kamu di-deploy ke Netlify,
+        tanpa perlu backend tambahan. Kalau kamu deploy ke Vercel/GitHub Pages, ganti dengan
+        layanan seperti Formspree (lihat README).
+      </p>
+    </div>
+  </section>
+</BaseLayout>

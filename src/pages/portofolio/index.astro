@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PortfolioCard from '../../components/PortfolioCard.astro';
+import { getCollection } from 'astro:content';
+
+const allItems = (await getCollection('portfolio')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const featured = allItems.find((item) => item.data.featured) ?? allItems[0];
+const rest = allItems.filter((item) => item.slug !== featured?.slug);
+
+const featuredDate = featured?.data.pubDate.toLocaleDateString('id-ID', {
+  month: 'long',
+  year: 'numeric',
+});
+---
+
+<BaseLayout title="Portofolio" description="Kumpulan pekerjaan dan proyek yang pernah saya kerjakan.">
+  <section class="max-w-4xl mx-auto px-5 sm:px-8 pt-12 pb-16">
+    <div class="flex items-end justify-between gap-4 mb-2">
+      <h1 class="font-display text-3xl sm:text-4xl text-ink">Portofolio</h1>
+      <p class="text-sm text-muted/70 whitespace-nowrap">{allItems.length} proyek</p>
+    </div>
+    <p class="text-muted max-w-xl mb-8">
+      Pekerjaan dan proyek yang pernah saya kerjakan, dari yang formal sampai eksperimen kecil.
+    </p>
+
+    {
+      featured && (
+        <a
+          href={`/portofolio/${featured.slug}`}
+          class="group grid sm:grid-cols-2 gap-6 sm:gap-8 items-center bg-surface border border-line rounded-sm p-6 sm:p-8 mb-10 hover:border-orange/50 transition-colors"
+        >
+          <div class="aspect-[4/3] overflow-hidden bg-surface2 rounded-sm order-1">
+            {featured.data.coverImage ? (
+              <img
+                src={featured.data.coverImage}
+                alt=""
+                class="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300"
+              />
+            ) : (
+              <div class="w-full h-full flex items-center justify-center">
+                <span class="font-display text-5xl text-ink/15">{featured.data.title.charAt(0)}</span>
+              </div>
+            )}
+          </div>
+          <div class="order-2">
+            <p class="text-xs uppercase tracking-wide text-orange mb-3">Proyek unggulan</p>
+            <h2 class="font-display text-xl sm:text-2xl leading-tight text-ink group-hover:text-orange transition-colors">
+              {featured.data.title}
+            </h2>
+            <p class="mt-3 text-muted leading-relaxed">{featured.data.description}</p>
+            <div class="mt-5 flex flex-wrap items-center gap-2 text-sm">
+              <span class="text-muted/70">{featuredDate}</span>
+              {featured.data.tags.map((tag) => (
+                <span class="px-2 py-0.5 bg-ink/5 rounded-sm text-ink/70 text-xs">{tag}</span>
+              ))}
+            </div>
+          </div>
+        </a>
+      )
+    }
+
+    {
+      rest.length === 0 ? (
+        !featured && <p class="text-muted py-10">Belum ada proyek yang ditambahkan.</p>
+      ) : (
+        <div class="reveal-stagger grid sm:grid-cols-2 gap-x-8 gap-y-10">
+          {rest.map((item) => (
+            <PortfolioCard
+              href={`/portofolio/${item.slug}`}
+              title={item.data.title}
+              description={item.data.description}
+              role={item.data.role}
+              tags={item.data.tags}
+              coverImage={item.data.coverImage}
+            />
+          ))}
+        </div>
+      )
+    }
+  </section>
+</BaseLayout>
