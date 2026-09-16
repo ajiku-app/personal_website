@@ -5,6 +5,8 @@ backend:
 # Aktifkan Netlify Identity + Git Gateway di dashboard Netlify kamu
 # (Site settings > Identity > Enable Identity, lalu Enable Git Gateway)
 
+logo_url: /admin/cms-logo.svg
+
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 

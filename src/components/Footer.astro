@@ -5,10 +5,23 @@ const year = new Date().getFullYear();
 <footer class="bg-navy border-t border-line mt-16">
   <div class="max-w-4xl mx-auto px-5 sm:px-8 py-8 flex flex-col sm:flex-row justify-between gap-4 text-sm text-muted">
     <p>© {year} Dwi Septa Aji S. Ditulis dan dirawat sendiri.</p>
-    <div class="flex gap-5">
+    <div class="flex items-center gap-5">
       <a href="/kontak" class="hover:text-orange">Kontak</a>
       <a href="https://github.com/ajiku-app" class="hover:text-orange" target="_blank" rel="noopener noreferrer">GitHub</a>
       <a href="https://www.linkedin.com/in/dwi-septa-aji-9bb10411b/" class="hover:text-orange" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a
+        href="https://ajiku-admin.netlify.app/admin/"
+        class="flex items-center gap-1 text-muted/60 hover:text-orange transition-colors"
+        target="_blank"
+        rel="noopener noreferrer"
+        title="Masuk ke panel admin"
+      >
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </svg>
+        Admin
+      </a>
     </div>
   </div>
 </footer>
