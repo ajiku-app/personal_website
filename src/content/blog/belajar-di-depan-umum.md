@@ -6,7 +6,7 @@ pubDate: 2026-07-03
 tags:
   - karier
   - refleksi
-coverImage: /images/uploads/aji.jpg-copy.jpg
+coverImage: https://i.imgur.com/cuijMEE.png
 draft: false
 ---
 
